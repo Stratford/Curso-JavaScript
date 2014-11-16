@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>Ejercicio tema 2</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		
+		<script type='text/javascript'>
+			function fibonacci(){
+				// Dividimos el texto de la sucesion y calculamos longitud
+				sucesion = $("#fibonacci").html().split(" ");
+				n = sucesion.length;
+				
+				// Generamos el siguiente elemento
+				siguiente = parseInt(sucesion[n-1]) + parseInt(sucesion[n-2]);
+				
+				// Añadimos el nuevo elemento al texto
+				$("#fibonacci").html($("#fibonacci").html() + " " + siguiente);
+			}
+			
+			function padovan(){
+				// Dividimos el texto de la sucesion y calculamos longitud
+				sucesion = $("#padovan").html().split(" ");
+				n = sucesion.length;
+				
+				// Generamos el siguiente elemento
+				siguiente = parseInt(sucesion[n-2]) + parseInt(sucesion[n-3]);
+				
+				// Añadimos el nuevo elemento al texto
+				$("#padovan").html($("#padovan").html() + " " + siguiente);
+			}
+		</script>
+	</head>
+	
+	<body>
+		<h1>Ejercicio sobre JQuery</h1>
+		<p>En este ejercicio se pretende demostrar los conocimientos adquiridos sobre JQuery. Se presentan dos sucesiones con sus valores iniciales. Cada una de ellas cuenta con un boton de "Siguiente", que calculará el siguiente elemento de dicha sucesión y lo añadirá a la lista.</p>
+		
+		<h2>Sucesión de Fibonacci</h2>
+		<p id="fibonacci">0 1</p>
+		<button onclick="fibonacci()">Siguiente</button>
+		
+		<h2>Sucesión de Padovan</h2>
+		<p id="padovan">1 1 1</p>
+		<button onclick="padovan()">Siguiente</button>
+	</body>
+</html>
