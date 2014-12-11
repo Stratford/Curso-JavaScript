@@ -10,7 +10,9 @@ var listin = new Array;
     Funcion GET sin parametros. Devuelve la pagina web.
  */
 app.get('/', function (req, res) {   
-    /*res.send('\nPuedes almacenar tu nombre y telefono en nuestro listado telefonico haciendo una llamada PUT a \'http://127.0.0.1:8088/{telefono}/{nombre}\'\nPara consultar el nombre al que pertenece un determinado telefono puedes hacer una llamada GET a \'http://127.0.0.1:8088/{telefono}\'\nPara modificar el propietario de un telefono deberas realizar una llamada POST a \'http://127.0.0.1:8088/{telefono}/{nombre}\'\n\n');*/
+	var response = fs.readFileSync("index.html");
+    res.contentType("text/html; charset=iso-8859-15");
+    res.send(response);
 });
 
 
@@ -57,4 +59,3 @@ app.post('/:tlf/:nombre', function (req, res) {
 
 app.listen(8088);
 console.log('Server running at http://127.0.0.1:8088/');
-
