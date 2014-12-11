@@ -17,10 +17,10 @@ app.get('/', function (req, res) {
     Funcion PUT para insertar una nueva entrada a la 'base de datos'.
     Antes de realizar la insercion se comprueba si la clave ya existia.
  */
-app.put('/:tlf/:nombre', function( req,res ) {  // NO FUNCIONA EL SEGUNDO PARAMETRO!!!!
+app.put('/:tlf/:nombre', function( req,res ) {
     if (listin[req.params.tlf] == undefined){
         listin[req.params.tlf] = req.params.nombre;
-        res.send("\nTelefono " + req.params.tlf + " (con propietario " + listin[req.params.nombre] + ") guardado correctamente\n\n");
+        res.send("\nTelefono " + req.params.tlf + " (con propietario " + listin[req.params.tlf] + ") guardado correctamente\n\n");
     }else{
         res.send("\nError: El numero de telefono " + req.params.tlf + " ya existe\n\n");
     }
@@ -47,7 +47,7 @@ app.get('/:tlf', function (req, res) {
 app.post('/:tlf/:nombre', function (req, res) {
     if (listin[req.params.tlf] != undefined){
         listin[req.params.tlf] = req.params.nombre;
-        res.send("\nEl nuevo propietario del telefono " + req.params.tlf + " es " + listin[req.params.nombre] + "\n\n");
+        res.send("\nEl nuevo propietario del telefono " + req.params.tlf + " es " + listin[req.params.tlf] + "\n\n");
     }else{
         res.send("\nError: El numero de telefono " + req.params.tlf + " no existe\n\n");
     }
