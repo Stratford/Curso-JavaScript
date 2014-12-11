@@ -5,7 +5,56 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		
 		<script type='text/javascript'>
-			// LLAMADAS AJAX!!!
+			$(document).ready(function(){
+				// Funcion para limpiar todos los inputs y respuestas previas
+				function clear(){
+					$('#add-tlf').val("");
+					$('#add-name').val("");
+					$('#add-result').html("");
+					
+					$('#edit-tlf').val("");
+					$('#edit-name').val("");
+					$('#edit-result').html("");
+					
+					$('#get-tlf').val("");
+					$('#get-name').val("");
+					$('#get-result').html("");
+				}
+				
+				// Llamada PUT para insertar una nueva entrada en el listin
+				$('#add-button').on('click', function(){
+					path = $('#add-tlf').val() + '/' + $('#add-name').val();	// Montamos el path de la api
+					$.ajax({	// No funcionaba con el formato de las otras llamadas
+						url: path,
+						type: 'PUT',
+						success: function(response){
+							// Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
+							clear();
+							$('#add-result').html(response);
+						}
+					});
+				});
+				
+				// Llamada POST para editar una entrada del listin
+				$('#edit-button').on('click', function(){
+					path = $('#edit-tlf').val() + '/' + $('#edit-name').val();	// Montamos el path de la api
+					$.post(path, function(response){
+						// Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
+						clear();
+						$('#edit-result').html(response);
+					});
+				});
+				
+				// Llamada GET para consultar una entrada del listin
+				$('#get-button').on('click', function(){
+					path = $('#get-tlf').val();	// Montamos el path de la api
+					$.get(path, function(response){
+						// Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
+						clear();
+						$('#get-result').html(response);	// Si el input se deja en blanco, muestra la web completa (GET a /)
+					});
+				});
+			});
 		</script>
 	</head>
 	
@@ -14,22 +63,25 @@
 		
 		<div>
 		    <h4>Añadir numero y propietario:</h4>
-		    <input id="add-tlf" type="text"/>
-		    <input id="add-name" type="text"/>
-		    <button id="add-result">Añadir</button>
-		<div>
+		    <input id="add-tlf" type="text" placeholder="numero de telefono"/>
+		    <input id="add-name" type="text" placeholder="nombre del propietario"/>
+		    <button id="add-button">Añadir</button>
+		    <p id="add-result"></p>
+		<div><br>
 		
 		<div>
 		    <h4>Editar numero y propietario:</h4>
-		    <input id="edit-tlf" type="text"/>
-		    <input id="edit-name" type="text"/>
-		    <button id="edit-result">Editar</button>
-		<div>
+		    <input id="edit-tlf" type="text" placeholder="numero de telefono"/>
+		    <input id="edit-name" type="text" placeholder="nombre del propietario"/>
+		    <button id="edit-button">Editar</button>
+		    <p id="edit-result"></p>
+		<div><br>
 		
 		<div>
 		    <h4>Consultar propietario:</h4>
-		    <input id="get-tlf" type="text"/>
-		    <button id="get-result">Buscar</button>
-		<div>
+		    <input id="get-tlf" type="text" placeholder="numero de telefono"/>
+		    <button id="get-button">Buscar</button>
+		    <p id="get-result"></p>
+		<div><br>
 	</body>
 </html>
