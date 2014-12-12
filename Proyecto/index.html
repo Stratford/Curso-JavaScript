@@ -22,37 +22,52 @@
 				}
 				
 				// Llamada PUT para insertar una nueva entrada en el listin
-				$('#add-button').on('click', function(){
-					path = $('#add-tlf').val() + '/' + $('#add-name').val();	// Montamos el path de la api
-					$.ajax({	// No funcionaba con el formato de las otras llamadas
-						url: path,
-						type: 'PUT',
-						success: function(response){
-							// Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
-							clear();
-							$('#add-result').html(response);
-						}
-					});
+				$('#add-button').on('click', function(){    // Comprobamos que los input no esten vacios
+				    if ($('#add-tlf').value && $('#add-name').value){
+					    path = $('#add-tlf').val() + '/' + $('#add-name').val();	// Montamos el path de la api
+					    $.ajax({	// No funcionaba con el formato de las otras llamadas
+						    url: path,
+						    type: 'PUT',
+						    success: function(response){
+							    // Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
+							    clear();
+							    $('#add-result').html(response);
+						    }
+					    });
+			        }else{
+			            clear();
+					    $('#add-result').html("Debes rellenar los campos de texto");
+			        }
 				});
 				
 				// Llamada POST para editar una entrada del listin
 				$('#edit-button').on('click', function(){
-					path = $('#edit-tlf').val() + '/' + $('#edit-name').val();	// Montamos el path de la api
-					$.post(path, function(response){
-						// Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
-						clear();
-						$('#edit-result').html(response);
-					});
+				    if ($('#edit-tlf').value && $('#edit-name').value){ // Comprobamos que los input no esten vacios
+					    path = $('#edit-tlf').val() + '/' + $('#edit-name').val();	// Montamos el path de la api
+					    $.post(path, function(response){
+						    // Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
+						    clear();
+						    $('#edit-result').html(response);
+					    });
+					}else{
+					    clear();
+					    $('#edit-result').html("Debes rellenar los campos de texto");
+					}
 				});
 				
 				// Llamada GET para consultar una entrada del listin
 				$('#get-button').on('click', function(){
-					path = $('#get-tlf').val();	// Montamos el path de la api
-					$.get(path, function(response){
-						// Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
-						clear();
-						$('#get-result').html(response);	// Si el input se deja en blanco, muestra la web completa (GET a /)
-					});
+				    if ($('#get-tlf').value){   // Comprobamos que el input no esta vacio
+					    path = $('#get-tlf').val();	// Montamos el path de la api
+					    $.get(path, function(response){
+						    // Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
+						    clear();
+						    $('#get-result').html(response);
+					    });
+					}else{
+					    clear();
+					    $('#get-result').html("Debes rellenar el campo de texto");
+					}
 				});
 			});
 		</script>
