@@ -1,0 +1,102 @@
+<html>
+	<head>
+		<title>Proyecto</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		
+		<script type='text/javascript'>
+			$(document).ready(function(){
+				// Funcion para limpiar todos los inputs y respuestas previas
+				function clear(){
+					$('#add-name').val("");
+					$('#add-tlf').val("");
+					$('#add-result').html("");
+					
+					$('#edit-name').val("");
+					$('#edit-tlf').val("");
+					$('#edit-result').html("");
+					
+					$('#get-name').val("");
+					$('#get-tlf').val("");
+					$('#get-result').html("");
+				}
+				
+				// Llamada PUT para insertar una nueva entrada en el listin
+				$('#add-button').on('click', function(){    // Comprobamos que los input no esten vacios
+				    if ($('#add-name').val() && $('#add-tlf').val()){
+					    path = $('#add-name').val() + '/' + $('#add-tlf').val();	// Montamos el path de la api
+					    $.ajax({	// No funcionaba con el formato de las otras llamadas
+						    url: path,
+						    type: 'PUT',
+						    success: function(response){
+							    // Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
+							    clear();
+							    $('#add-result').html(response);
+						    }
+					    });
+			        }else{
+			            clear();
+					    $('#add-result').html("Debes rellenar los campos de texto");
+			        }
+				});
+				
+				// Llamada POST para editar una entrada del listin
+				$('#edit-button').on('click', function(){
+				    if ($('#edit-name').val() && $('#edit-tlf').val()){ // Comprobamos que los input no esten vacios
+					    path = $('#edit-name').val() + '/' + $('#edit-tlf').val();	// Montamos el path de la api
+					    $.post(path, function(response){
+						    // Borramos el resto de respuestas anteriores (si las habia) y mostramos el resultado
+						    clear();
+						    $('#edit-result').html(response);
+					    });
+					}else{
+					    clear();
+					    $('#edit-result').html("Debes rellenar los campos de texto");
+					}
+				});
+				
+				// Llamada GET para consultar una entrada del listin
+				$('#get-button').on('click', function(){
+				    if ($('#get-name').val()){   // Comprobamos que el input no esta vacio
+					    path = $('#get-name').val();	// Montamos el path de la api
+					    $.get(path, function(response){
+						    // Borramos el resto de respuestas anteriores (si las habia), formateamos el resultado y lo mostramos
+						    clear();
+						    $('#get-result').html(response);
+					    });
+					}else{
+					    clear();
+					    $('#get-result').html("Debes rellenar el campo de texto");
+					}
+				});
+			});
+		</script>
+	</head>
+	
+	<body>
+		<h1>Listin telefonico</h1>
+		
+		<div>
+		    <h4>Añadir numero y propietario:</h4>
+		    <input id="add-name" type="text" placeholder="nombre del propietario"/>
+		    <input id="add-tlf" type="text" placeholder="numero de telefono"/>
+		    <button id="add-button">Añadir</button>
+		    <p id="add-result"></p>
+		<div><br>
+		
+		<div>
+		    <h4>Editar numero y propietario:</h4>
+		    <input id="edit-name" type="text" placeholder="nombre del propietario"/>
+		    <input id="edit-tlf" type="text" placeholder="numero de telefono"/>
+		    <button id="edit-button">Editar</button>
+		    <p id="edit-result"></p>
+		<div><br>
+		
+		<div>
+		    <h4>Consultar propietario:</h4>
+		    <input id="get-name" type="text" placeholder="nombre del propietario"/>
+		    <button id="get-button">Buscar</button>
+		    <p id="get-result"></p>
+		<div><br>
+	</body>
+</html>
