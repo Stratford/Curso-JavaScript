@@ -3,6 +3,7 @@
 var fs = require('fs');
 var express=require('express');
 var app = express();
+app.set('port', process.env.PORT || 8088);
 var listin = new Array;
 
 
@@ -57,6 +58,6 @@ app.post('/:nombre/:tlf', function (req, res) {
 });
 
 
-app.listen(8088);
+app.listen(app.get('port'));
 console.log('Server running at http://127.0.0.1:8088/');
 
