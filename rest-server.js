@@ -9,7 +9,11 @@ var listin = new Array;
 /*
     Funcion GET sin parametros. Devuelve la pagina web.
  */
+<<<<<<< HEAD
 app.get('/', function (req, res) {   
+=======
+app.get('/', function (req, res) {
+>>>>>>> 1e29b90eecb2eb96bf729b7354d9460befd2f2f0
 	var response = fs.readFileSync("index.html");
     res.contentType("text/html; charset=iso-8859-15");
     res.send(response);
