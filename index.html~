@@ -62,7 +62,7 @@
 					    $.get(path, function(response){
 						    // Borramos el resto de respuestas anteriores (si las habia), formateamos el resultado y lo mostramos
 						    clear();
-						    $('#get-result').html(response);
+						    $('#get-result').html("El telefono de " + path + " es " + response.path);
 					    });
 					}else{
 					    clear();
